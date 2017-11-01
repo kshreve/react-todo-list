@@ -24,6 +24,7 @@ const validate = values => {
 
 export default reduxForm({
     validate,
+    enableReinitialize: true,
 })(connect((state, props) => ({
     values: getFormValues(props.form)(state)
 }), (dispatch) => ({

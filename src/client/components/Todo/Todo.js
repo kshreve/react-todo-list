@@ -19,7 +19,7 @@ class Todo extends Component {
     }
 
     render() {
-        const { editable, values: { text, priority }, handleSubmit } = this.props;
+        const { editable, values: { text, priority, _id }, handleSubmit } = this.props;
 
         let content = <li className="todo-item" onBlur={() => setTimeout(handleSubmit(this.submitForm.bind(this)))}>
             <Input type="text" name="text"/>
@@ -28,7 +28,7 @@ class Todo extends Component {
             {editable && <img src={garbage} className="icon" alt="garbage" onClick={this.deleteTodo.bind(this)}/>}
         </li>;
 
-        if ( !editable ) {
+        if ( !editable || !_id ) {
             content = <li className="todo-item">
                 <span>{text}</span>
                 <span>{priority}</span>

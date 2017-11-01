@@ -50,11 +50,19 @@ export default (state = initialState, action = null) => {
 
             return Object.assign({}, state, {
                 hasError: false,
-                todos
+                todos,
             });
         case ADD_TODO_SUCCESS:
+            const index = state.todos.findIndex((todo) => todo.id === action.payload.id);
+            let newTodos = [...state.todos];
+
+            if ( index > -1 ) {
+                newTodos[index] = action.payload;
+            }
+
             return Object.assign({}, state, {
                 hasError: false,
+                todos:    sortTodos(newTodos),
             });
         case ADD_TODO_FAILURE:
             return Object.assign({}, state, {
