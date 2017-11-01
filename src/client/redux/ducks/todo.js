@@ -15,17 +15,14 @@ export const UPDATE_TODO_REQUEST = 'UPDATE_TODO_REQUEST';
 export const UPDATE_TODO_SUCCESS = 'UPDATE_TODO_SUCCESS';
 export const UPDATE_TODO_FAILURE = 'UPDATE_TODO_FAILURE';
 
-export const EDIT_TODO = 'EDIT_TODO';
-
 export const DELETE_TODO_REQUEST = 'DELETE_TODO_REQUEST';
 export const DELETE_TODO_SUCCESS = 'DELETE_TODO_SUCCESS';
 export const DELETE_TODO_FAILURE = 'DELETE_TODO_FAILURE';
 
 const initialState = {
-    isLoading:  false,
-    hasError:   false,
-    todos:      [],
-    activeTodo: null,
+    isLoading: false,
+    hasError:  false,
+    todos:     [],
 };
 
 const sortTodos = (todos) => todos.sort((a, b) => a.priority - b.priority);
@@ -39,7 +36,7 @@ export default (state = initialState, action = null) => {
             });
         case GET_TODOS_SUCCESS:
             return Object.assign({}, state, {
-                isLoading: true,
+                isLoading: false,
                 hasError:  false,
                 todos:     sortTodos(action.payload),
             });
@@ -52,24 +49,59 @@ export default (state = initialState, action = null) => {
             let todos = sortTodos([...state.todos, action.payload]);
 
             return Object.assign({}, state, {
-                isLoading: true,
-                hasError:  false,
+                hasError: false,
                 todos
             });
         case ADD_TODO_SUCCESS:
             return Object.assign({}, state, {
-                isLoading: false,
-                hasError:  false,
+                hasError: false,
             });
         case ADD_TODO_FAILURE:
             return Object.assign({}, state, {
+                hasError: true,
+            });
+        case UPDATE_TODO_REQUEST: {
+            const index = state.todos.findIndex((todo) => todo.id === action.payload.id);
+            let newTodos = [...state.todos];
+
+            if ( index > -1 ) {
+                newTodos[index] = action.payload;
+            }
+
+            return Object.assign({}, state, {
+                hasError: false,
+                todos:    sortTodos(newTodos),
+            });
+        }
+        case UPDATE_TODO_FAILURE:
+            return Object.assign({}, initialState, {
                 isLoading: false,
                 hasError:  true,
             });
-        case EDIT_TODO:
-            return Object.assign({}, state, {
-                activeTodo: action.todo
+        case DELETE_TODO_REQUEST: {
+            const index = state.todos.findIndex((todo) => todo.id === action.payload.id);
+            let newTodos = [...state.todos];
+
+            if ( index > -1 ) {
+                newTodos = [
+                    ...state.todos.slice(0, index),
+                    ...state.todos.slice(index + 1),
+                ];
+            }
+
+            return Object.assign({}, initialState, {
+                hasError: false,
+                todos:    sortTodos(newTodos),
             });
+        }
+        case DELETE_TODO_FAILURE: {
+            // if it fails, add it back to the list of todos
+            return Object.assign({}, initialState, {
+                isLoading: false,
+                hasError:  true,
+                todos:     sortTodos([...state.todos, action.payload]),
+            });
+        }
         default:
             return state;
     }
@@ -102,11 +134,6 @@ export const addTodo = (todo = { id: uuid(), text: uuid(), priority: 0, }) => ({
     }
 });
 
-export const editTodo = (todo) => ({
-    type: EDIT_TODO,
-    todo,
-});
-
 export const updateTodo = (todo) => ({
     [CALL_API]: {
         endpoint: TODO(todo._id.$oid),
@@ -135,11 +162,14 @@ export const deleteTodo = (todo) => ({
         },
         types:    [
             {
-                type: DELETE_TODO_REQUEST,
-                todo
+                type:    DELETE_TODO_REQUEST,
+                payload: todo
             },
             DELETE_TODO_SUCCESS,
-            DELETE_TODO_FAILURE,
+            {
+                type:    DELETE_TODO_FAILURE,
+                payload: todo
+            },
         ]
     }
 });

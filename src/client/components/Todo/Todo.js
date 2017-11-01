@@ -7,8 +7,9 @@ import garbage from '../../assets/garbage.svg';
 
 class Todo extends Component {
     deleteTodo() {
-        const { actions: { deleteTodo }, item } = this.props;
-        return deleteTodo(item);
+        const { actions: { deleteTodo }, values } = this.props;
+
+        return deleteTodo(values);
     }
 
     submitForm(values) {

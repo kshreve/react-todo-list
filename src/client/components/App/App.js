@@ -13,10 +13,6 @@ class App extends Component {
         return this.props.actions.addTodo();
     }
 
-    addLowTodo() {
-        return this.props.actions.addTodo({ text: 'text', priority: 10, });
-    }
-
     render() {
         return (
             <div className="App">
@@ -26,7 +22,6 @@ class App extends Component {
                 </header>
                 <div className="main">
                     <div onClick={this.addTodo.bind(this)}> Add new TODO +</div>
-                    <div onClick={this.addLowTodo.bind(this)}> Add low TODO +</div>
 
                     <TodoList editable={true}/>
                     <hr/>
