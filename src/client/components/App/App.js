@@ -23,7 +23,10 @@ class App extends Component {
                 <div className="main">
                     <div onClick={this.addTodo.bind(this)}> Add new TODO +</div>
                     <div onClick={this.addLowTodo.bind(this)}> Add low TODO +</div>
-                    <List/>
+
+                    <List editable={true}/>
+                    <hr/>
+                    <List editable={false}/>
                 </div>
                 <div className="footer"/>
             </div>
