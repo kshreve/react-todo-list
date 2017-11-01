@@ -1,7 +1,7 @@
 import uuid from 'uuid';
 import { CALL_API } from 'redux-api-middleware';
 
-import { TODOS } from '../constants';
+import { TODOS, TODO } from '../constants';
 
 export const ADD_TODO_REQUEST = 'ADD_TODO_REQUEST';
 export const ADD_TODO_SUCCESS = 'ADD_TODO_SUCCESS';
@@ -10,6 +10,12 @@ export const ADD_TODO_FAILURE = 'ADD_TODO_FAILURE';
 export const GET_TODOS_REQUEST = 'GET_TODOS_REQUEST';
 export const GET_TODOS_SUCCESS = 'GET_TODOS_SUCCESS';
 export const GET_TODOS_FAILURE = 'GET_TODOS_FAILURE';
+
+export const UPDATE_TODO_REQUEST = 'UPDATE_TODO_REQUEST';
+export const UPDATE_TODO_SUCCESS = 'UPDATE_TODO_SUCCESS';
+export const UPDATE_TODO_FAILURE = 'UPDATE_TODO_FAILURE';
+
+export const EDIT_TODO = 'EDIT_TODO';
 
 const initialState = {
     isLoading:  false,
@@ -56,6 +62,10 @@ export default (state = initialState, action = null) => {
                 isLoading: false,
                 hasError:  true,
             });
+        case EDIT_TODO:
+            return Object.assign({}, state, {
+                activeTodo: action.todo
+            });
         default:
             return state;
     }
@@ -83,6 +93,31 @@ export const addTodo = (todo = { id: uuid(), text: uuid(), priority: 0, }) => ({
                 payload: todo
             },
             ADD_TODO_SUCCESS,
-            ADD_TODO_FAILURE]
+            ADD_TODO_FAILURE,
+        ]
+    }
+});
+
+export const editTodo = (todo) => ({
+    type: EDIT_TODO,
+    todo,
+});
+
+export const updateTodo = (todo) => ({
+    [CALL_API]: {
+        endpoint: TODO(todo.id),
+        method:   'PUT',
+        headers:  {
+            'Content-Type': 'application/json'
+        },
+        body:     JSON.stringify(todo),
+        types:    [
+            {
+                type: UPDATE_TODO_REQUEST,
+                todo
+            },
+            UPDATE_TODO_SUCCESS,
+            UPDATE_TODO_FAILURE,
+        ]
     }
 });

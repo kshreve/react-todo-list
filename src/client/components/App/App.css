@@ -29,3 +29,11 @@
         transform: rotate(360deg);
     }
 }
+
+.main {
+    padding: 0 100px;
+}
+
+.footer {
+    height: 300px
+}

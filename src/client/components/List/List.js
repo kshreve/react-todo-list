@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './List.css';
-import Todo from '../Todo/Todo';
+import Todo from '../Todo';
 
 class List extends Component {
     componentDidMount() {
@@ -11,9 +11,9 @@ class List extends Component {
         const { todos } = this.props;
 
         return (
-            <div>
+            <div className="list">
                 {
-                    todos && todos.map((item) => <Todo key={item.id} {...item}/>)
+                    todos && todos.map((item) => <Todo key={item.id} item={item}/>)
                 }
             </div>
         );
