@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from '../../assets/logo.png';
 import './App.css';
 
-import List from '../List';
+import TodoList from '../TodoList';
 
 class App extends Component {
     componentDidMount() {
@@ -28,9 +28,9 @@ class App extends Component {
                     <div onClick={this.addTodo.bind(this)}> Add new TODO +</div>
                     <div onClick={this.addLowTodo.bind(this)}> Add low TODO +</div>
 
-                    <List editable={true}/>
+                    <TodoList editable={true}/>
                     <hr/>
-                    <List editable={false}/>
+                    <TodoList editable={false}/>
                 </div>
                 <div className="footer"/>
             </div>

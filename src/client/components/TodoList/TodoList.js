@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './List.css';
+import './TodoList.css';
 import Todo from '../Todo';
 
 class List extends Component {
@@ -15,6 +15,10 @@ class List extends Component {
 
         return (
             <ul className="list">
+                <div className="list-header">
+                    <span>Todo Text</span>
+                    <span>priority</span>
+                </div>
                 {
                     todos && todos.map((item) => this.renderItem(item))
                 }

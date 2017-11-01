@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 
-import List from './List';
+import TodoList from './TodoList';
 
 export default connect((state) => ({
         todos: state.todo.todos
     }),
     (dispatch) => ({})
-)(List);
+)(TodoList);
