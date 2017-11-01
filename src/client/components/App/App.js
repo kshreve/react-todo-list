@@ -21,9 +21,8 @@ class App extends Component {
                     <h1 className="App-title">Welcome to WayUp Code test</h1>
                 </header>
                 <div className="main">
-                    <div onClick={this.addTodo.bind(this)}> Add new TODO +</div>
-
                     <TodoList editable={true}/>
+                    <button onClick={this.addTodo.bind(this)}> Add new TODO +</button>
                     <hr/>
                     <TodoList editable={false}/>
                 </div>
