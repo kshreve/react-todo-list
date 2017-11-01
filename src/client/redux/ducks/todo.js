@@ -17,6 +17,10 @@ export const UPDATE_TODO_FAILURE = 'UPDATE_TODO_FAILURE';
 
 export const EDIT_TODO = 'EDIT_TODO';
 
+export const DELETE_TODO_REQUEST = 'DELETE_TODO_REQUEST';
+export const DELETE_TODO_SUCCESS = 'DELETE_TODO_SUCCESS';
+export const DELETE_TODO_FAILURE = 'DELETE_TODO_FAILURE';
+
 const initialState = {
     isLoading:  false,
     hasError:   false,
@@ -105,7 +109,7 @@ export const editTodo = (todo) => ({
 
 export const updateTodo = (todo) => ({
     [CALL_API]: {
-        endpoint: TODO(todo.id),
+        endpoint: TODO(todo._id.$oid),
         method:   'PUT',
         headers:  {
             'Content-Type': 'application/json'
@@ -118,6 +122,24 @@ export const updateTodo = (todo) => ({
             },
             UPDATE_TODO_SUCCESS,
             UPDATE_TODO_FAILURE,
+        ]
+    }
+});
+
+export const deleteTodo = (todo) => ({
+    [CALL_API]: {
+        endpoint: TODO(todo._id.$oid),
+        method:   'DELETE',
+        headers:  {
+            'Content-Type': 'application/json'
+        },
+        types:    [
+            {
+                type: DELETE_TODO_REQUEST,
+                todo
+            },
+            DELETE_TODO_SUCCESS,
+            DELETE_TODO_FAILURE,
         ]
     }
 });

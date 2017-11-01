@@ -1,5 +1,15 @@
 .todo-item {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
+}
+
+.todo-item span {
+    min-width: 25%;
+}
+
+.icon {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
 }

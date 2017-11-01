@@ -8,14 +8,14 @@ class List extends Component {
     }
 
     render() {
-        const { todos } = this.props;
+        const { todos, editable } = this.props;
 
         return (
-            <div className="list">
+            <ul className="list">
                 {
-                    todos && todos.map((item) => <Todo key={item.id} item={item}/>)
+                    todos && todos.map((item) => <Todo key={item.id} item={item} editable={editable}/>)
                 }
-            </div>
+            </ul>
         );
     }
 }

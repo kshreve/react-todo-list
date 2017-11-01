@@ -1,6 +1,5 @@
 .list {
     display: flex;
-    width: 960px;
     align-content: center;
     flex-direction: column;
 }
