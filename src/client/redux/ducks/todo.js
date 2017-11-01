@@ -18,6 +18,8 @@ const initialState = {
     activeTodo: null,
 };
 
+const sortTodos = (todos) => todos.sort((a, b) => a.priority - b.priority);
+
 export default (state = initialState, action = null) => {
     switch( action.type ) {
         case GET_TODOS_REQUEST:
@@ -29,7 +31,7 @@ export default (state = initialState, action = null) => {
             return Object.assign({}, state, {
                 isLoading: true,
                 hasError:  false,
-                todos:     action.payload
+                todos:     sortTodos(action.payload),
             });
         case GET_TODOS_FAILURE:
             return Object.assign({}, initialState, {
@@ -37,10 +39,12 @@ export default (state = initialState, action = null) => {
                 hasError:  true,
             });
         case ADD_TODO_REQUEST:
+            let todos = sortTodos([...state.todos, action.payload]);
+
             return Object.assign({}, state, {
                 isLoading: true,
                 hasError:  false,
-                todos:     [...state.todos, action.payload],
+                todos
             });
         case ADD_TODO_SUCCESS:
             return Object.assign({}, state, {
