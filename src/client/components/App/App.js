@@ -5,6 +5,10 @@ import './App.css';
 import List from '../List';
 
 class App extends Component {
+    componentDidMount() {
+        this.props.actions.getTodos();
+    }
+
     addTodo() {
         return this.props.actions.addTodo();
     }

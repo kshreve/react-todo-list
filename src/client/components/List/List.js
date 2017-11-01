@@ -3,10 +3,6 @@ import './List.css';
 import Todo from '../Todo';
 
 class List extends Component {
-    componentDidMount() {
-        this.props.actions.getTodos();
-    }
-
     render() {
         const { todos, editable } = this.props;
 

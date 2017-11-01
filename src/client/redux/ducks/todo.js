@@ -80,9 +80,6 @@ export const getTodos = () => ({
         endpoint: TODOS,
         method:   'GET',
         types:    [GET_TODOS_REQUEST, GET_TODOS_SUCCESS, GET_TODOS_FAILURE],
-        bailout:  (state) => {
-            return (state.todo.todos && state.todo.todos.length) || state.todo.isLoading;
-        }
     }
 });
 
