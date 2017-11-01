@@ -31,4 +31,12 @@ class Todo extends Component {
     }
 }
 
+Todo.defaultProps = {
+    item:     {
+        text:     '',
+        priority: ''
+    },
+    editable: false,
+};
+
 export default Todo;
