@@ -123,7 +123,7 @@ export const getTodos = () => ({
     }
 });
 
-export const addTodo = (todo = { id: uuid(), text: uuid(), priority: 0, }) => ({
+export const addTodo = (todo = { id: uuid(), text: '', priority: Math.MAX_SAFE_INTEGER, }) => ({
     [CALL_API]: {
         endpoint: TODOS,
         method:   'POST',
