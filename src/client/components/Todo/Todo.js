@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Input from '../Input/Input';
+
 import './Todo.css';
 import garbage from '../../assets/garbage.svg';
 import pencil from '../../assets/pencil.svg';
@@ -16,25 +18,38 @@ class Todo extends Component {
         return deleteTodo(item);
     }
 
-    render() {
-        const { item: { text, priority }, editable } = this.props;
+    submitForm() {
+        console.log('hi');
+    }
 
-        return (
-            <li className="todo-item">
+    render() {
+        const { editable, values: { text, priority } } = this.props;
+
+        let content = <li className="todo-item" onBlur={this.submitForm.bind(this)}>
+            <Input type="text" name="text"/>
+            <Input type="number" name="priority"/>
+
+            {editable && <img src={pencil} className="icon" alt="edit" onClick={this.setActiveTodo.bind(this)}/>}
+            {editable && <img src={garbage} className="icon" alt="garbage" onClick={this.deleteTodo.bind(this)}/>}
+        </li>;
+
+        if ( !editable ) {
+            content = <li className="todo-item">
                 <span>{text}</span>
                 <span>{priority}</span>
+            </li>;
+        }
 
-                {editable && <img src={pencil} className="icon" alt="edit" onClick={this.setActiveTodo.bind(this)}/>}
-                {editable && <img src={garbage} className="icon" alt="garbage" onClick={this.deleteTodo.bind(this)}/>}
-            </li>
+        return (
+            content
         );
     }
 }
 
 Todo.defaultProps = {
-    item:     {
+    values:   {
         text:     '',
-        priority: ''
+        priority: null,
     },
     editable: false,
 };
