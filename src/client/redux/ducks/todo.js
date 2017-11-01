@@ -117,8 +117,8 @@ export const updateTodo = (todo) => ({
         body:     JSON.stringify(todo),
         types:    [
             {
-                type: UPDATE_TODO_REQUEST,
-                todo
+                type:    UPDATE_TODO_REQUEST,
+                payload: todo
             },
             UPDATE_TODO_SUCCESS,
             UPDATE_TODO_FAILURE,
