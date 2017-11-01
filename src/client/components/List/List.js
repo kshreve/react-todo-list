@@ -3,13 +3,17 @@ import './List.css';
 import Todo from '../Todo/Todo';
 
 class List extends Component {
+    componentDidMount() {
+        this.props.actions.getTodos();
+    }
+
     render() {
-        const items = [1, 2, 3, 4, 5];
+        const { todos } = this.props;
 
         return (
             <div>
                 {
-                    items && items.map((item, index) => <Todo key={index} item={item}/>)
+                    todos && todos.map((item) => <Todo key={item.id} {...item}/>)
                 }
             </div>
         );

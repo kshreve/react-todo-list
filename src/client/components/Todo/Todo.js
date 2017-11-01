@@ -3,9 +3,12 @@ import './Todo.css';
 
 class Todo extends Component {
     render() {
+        const { text, priority } = this.props;
+        
         return (
             <div>
-                Todo
+                <div>{text}</div>
+                <div>{priority}</div>
             </div>
         );
     }
