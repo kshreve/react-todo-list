@@ -3,10 +3,12 @@ import thunk from 'redux-thunk';
 import { apiMiddleware } from 'redux-api-middleware';
 
 import rootReducer from './redux';
+import logger from './redux/middleware/logger';
 
 let middleware = [
     thunk,
     apiMiddleware,
+    logger,
 ];
 
 export const createStoreWithMiddleware = compose(
