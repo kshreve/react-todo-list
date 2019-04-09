@@ -29,4 +29,4 @@
 5. Allow automatic deploys from push on master
 
 
-### Live repo located -- https://wayup-app.herokuapp.com/
+### Live repo located -- https://wayup-todo-list.herokuapp.com/
